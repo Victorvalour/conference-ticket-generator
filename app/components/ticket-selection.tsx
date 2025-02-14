@@ -45,7 +45,7 @@ export function TicketSelection() {
       </CardHeader>
       <CardContent className="space-y-8 bg-[#08252B] border-[#0E464F] border-[1.5px]">
         <div className="space-y-4 border-[#07373F] mt-6 border-[1.5px] px-6 rounded-2xl py-4">
-          <h1 className="text-4xl font-bold text-center">Techember Fest &apos;25</h1>
+          <h1 className="text-4xl font-bold text-center">Techember Fest &&quot;25</h1>
           <p className="text-center text-gray-400">
             Join us for an unforgettable experience at Techember Fest. Secure your spot now.
           </p>
