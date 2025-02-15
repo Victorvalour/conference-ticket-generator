@@ -1,11 +1,35 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useTicketStore } from "@/lib/store";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useEffect, useState } from "react";
+import JsBarcode from "jsbarcode";
+import Image from "next/image";
 
 export function TicketDisplay() {
-  const router = useRouter()
+  const router = useRouter();
+  const { name, email, avatarUrl, specialRequest, ticketType } = useTicketStore();
+  const [ticketId, setTicketId] = useState("");
+
+
+console.log("User Data", name, email)
+  useEffect(() => {
+    // Generate a unique ticket ID
+    const uniqueId = `TKT-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    setTicketId(uniqueId);
+  }, []);
+
+  useEffect(() => {
+    if (ticketId) {
+      JsBarcode("#barcode", ticketId, {
+        format: "CODE128",
+        displayValue: true,
+        fontSize: 14,
+      });
+    }
+  }, [ticketId]);
 
   return (
     <div className="max-w-3xl mx-auto space-y-8">
@@ -32,37 +56,45 @@ export function TicketDisplay() {
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="h-24 w-24 rounded-lg bg-teal-400/10 border border-teal-400/30" />
+                  {avatarUrl && (
+                    <Image
+                      src={avatarUrl}
+                      alt="Avatar"
+                      width={96}
+                      height={96}
+                      className="h-24 w-24 rounded-lg border border-teal-400/30"
+                    />
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-gray-400">Full Name</p>
-                    <p className="text-white">John Doe</p>
+                    <p className="text-white">{name}</p>
                   </div>
                   <div>
                     <p className="text-gray-400">Email</p>
-                    <p className="text-white">john@example.com</p>
+                    <p className="text-white">{email}</p>
                   </div>
                   <div>
                     <p className="text-gray-400">Ticket Type</p>
-                    <p className="text-white">VIP</p>
+                    <p className="text-white">{ticketType}</p>
                   </div>
                   <div>
                     <p className="text-gray-400">Ticket ID</p>
-                    <p className="text-white">#1</p>
+                    <p className="text-white">{ticketId}</p>
                   </div>
                 </div>
 
                 {/* Special Request */}
                 <div className="text-sm">
                   <p className="text-gray-400">Special Request</p>
-                  <p className="text-white">No special requests</p>
+                  <p className="text-white">{specialRequest || "No special requests" }</p>
                 </div>
 
                 {/* Barcode */}
-                <div className="pt-4 border-t border-teal-900">
-                  <div className="h-16 bg-white rounded">{/* In a real app, generate a proper barcode here */}</div>
+                <div className="pt-4 border-t border-teal-900 flex justify-center">
+                  <svg id="barcode"></svg>
                 </div>
               </div>
             </div>

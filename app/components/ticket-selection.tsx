@@ -35,7 +35,7 @@ export function TicketSelection() {
   }
 
   return (
-    <Card className="max-w-3xl mx-auto bg-[#041E23] text-white border-[#0E464F] px-20">
+    <Card className="max-w-3xl mx-auto bg-[#041E23] text-white border-[#0E464F] px-2 md:px-20">
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-2xl font-normal font-jeju  ">Ticket Selection</CardTitle>

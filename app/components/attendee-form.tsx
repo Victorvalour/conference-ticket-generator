@@ -43,10 +43,15 @@ export function AttendeeForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setField("name", values.name);
+    setField("email", values.email);
+    setField("specialRequest", values.specialRequest ?? "");
+    
+    console.log("Stored Values:", useTicketStore.getState()); // Debugging
   
-    console.log(values)
-    router.push("/ticket")
+    router.push("/ticket");
   }
+  
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -90,6 +95,7 @@ export function AttendeeForm() {
           <CardTitle className="text-2xl font-normal">Attendee Details</CardTitle>
           <span className="text-sm text-gray-400">Step 2/3</span>
         </div>
+        <Progress value={66} className="h-1" />
       </CardHeader>
       <CardContent>
         <Form {...form}>
