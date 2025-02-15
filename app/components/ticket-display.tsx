@@ -82,7 +82,7 @@ console.log("User Data", name, email)
                   </div>
                   <div>
                     <p className="text-gray-400">Ticket ID</p>
-                    <p className="text-white">{ticketId}</p>
+                    <p className="text-white">{quantity}</p>
                   </div>
                 </div>
 
