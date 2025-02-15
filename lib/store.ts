@@ -7,7 +7,8 @@ interface TicketState {
   avatarUrl: string
   specialRequest: string
   ticketType: string
-  setField: (field: string, value: string) => void
+  quantity: number
+  setField: (field: string, value: string | number) => void
   reset: () => void
 }
 
@@ -19,8 +20,9 @@ export const useTicketStore = create<TicketState>()(
       avatarUrl: '',
       specialRequest: '',
       ticketType: '',
+      quantity: 1,
       setField: (field, value) => set((state) => ({ ...state, [field]: value })),
-      reset: () => set({ name: '', email: '', avatarUrl: '', specialRequest: '', ticketType: '' }),
+      reset: () => set({ name: '', email: '', avatarUrl: '', specialRequest: '', ticketType: '', quantity: 1 }),
     }),
     {
       name: 'ticket-storage',

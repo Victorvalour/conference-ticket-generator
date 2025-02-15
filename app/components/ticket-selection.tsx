@@ -30,10 +30,10 @@ export function TicketSelection() {
   const handleSubmit = () => {
     if (selectedTicket) {
       setField("ticketType", selectedTicket)
+      setField("quantity", Number(quantity)) 
       router.push("/attendee-form")
     }
   }
-
   return (
     <Card className="max-w-3xl mx-auto bg-[#041E23] text-white border-[#0E464F] px-2 md:px-20">
       <CardHeader>

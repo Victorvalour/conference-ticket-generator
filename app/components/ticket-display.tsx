@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export function TicketDisplay() {
   const router = useRouter();
-  const { name, email, avatarUrl, specialRequest, ticketType } = useTicketStore();
+  const { name, email, avatarUrl, specialRequest, ticketType, quantity } = useTicketStore();
   const [ticketId, setTicketId] = useState("");
 
 

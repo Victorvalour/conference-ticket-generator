@@ -37,7 +37,7 @@ export function AttendeeForm() {
     defaultValues: {
       name: "",
       email: "",
-      avatar: "https://firebasestorage.googleapis.com/v0/b/valvitek-674f9.appspot.com/o/vic-img-2.jpg?alt=media&token=1c4fb293-52ec-4d94-aac3-aa23b7f7ba45",
+      avatar: "",
       specialRequest: "",
     },
   })
