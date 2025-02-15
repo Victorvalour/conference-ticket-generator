@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Upload } from "lucide-react"
+import { CloudDownload, Upload } from "lucide-react"
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import firebaseApp from "@/lib/firebase"
 import { Button } from "@/components/ui/button"
@@ -89,7 +89,7 @@ export function AttendeeForm() {
   }
 
   return (
-    <Card className="max-w-3xl mx-auto bg-[#002626] text-white border-teal-900">
+    <Card className="max-w-3xl mx-auto bg-[#041E23] text-white border-teal-900">
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-2xl font-normal">Attendee Details</CardTitle>
@@ -101,17 +101,19 @@ export function AttendeeForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
-              <div className="text-center">
+              <div className="border-2 border-[#07373F] rounded-2xl py-4 px-2 bg-[#052228] ">
                 <FormField
                   control={form.control}
                   name="avatar"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="sr-only">Upload Profile Photo</FormLabel>
+                      <FormLabel className="text-gray-200">Upload Profile Photo</FormLabel>
                       <FormControl>
-                        <div className="relative h-40 w-40 mx-auto">
+                        <div className="relative h-40 w-[70%] mx-auto bg-[#011920] rounded-2xl">
+                  
+                        
                           <div
-                            className={`h-full w-full rounded-lg border-2 border-dashed border-teal-400/50 flex items-center justify-center ${
+                            className={`relative h-full w-40 mx-auto rounded-2xl border-[3px] border-dashed border-[#24A0B5] flex items-center bg-[#0E464F] justify-center ${
                               field.value ? "bg-teal-400/10" : "bg-transparent"
                             }`}
                           >
@@ -125,7 +127,7 @@ export function AttendeeForm() {
                               />
                             ) : (
                               <div className="text-center">
-                                <Upload className="h-10 w-10 mx-auto text-teal-400" />
+                                <CloudDownload className="h-10 w-10 mx-auto text-teal-400" />
                                 <p className="text-sm text-gray-400 mt-2">Drag & drop or click to upload</p>
                               </div>
                             )}
@@ -136,7 +138,10 @@ export function AttendeeForm() {
                               onChange={handleImageUpload}
                               disabled={isUploading}
                             />
+                        
                           </div>
+                          
+                        
                         </div>
                       </FormControl>
                       <FormMessage />

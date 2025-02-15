@@ -14,6 +14,7 @@ export default {
   	extend: {
 		fontFamily: {
 			jeju: ['Jeju Myeongjo', 'serif'],
+			roadrage: ['Road Rage', 'sans-serif'],
 		  },
   		colors: {
   			background: 'hsl(var(--background))',

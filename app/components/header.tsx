@@ -9,6 +9,8 @@ import ticz from "@/app/images/ticz.svg"
 export function Header() {
   return (
     <header className="flex items-center justify-between   border-[1.5px] rounded-3xl px-3 py-3 border-[#197686] font-jeju">
+
+      <Link href="/">
       <div className="flex items-center space-x-2 ">
       
       <div className="bg-[#052F35] border-2 border-[#0E464F] p-2 rounded-2xl">
@@ -18,6 +20,8 @@ export function Header() {
           <Image src={ticz} alt="ticz" />
        
       </div>
+      </Link>
+
       <nav className="hidden md:flex items-center space-x-6">
         <Link className="text-gray-300 hover:text-white transition-colors" href="/events">
           Events
