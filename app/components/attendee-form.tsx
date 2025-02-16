@@ -16,8 +16,14 @@ import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image"
 import { useTicketStore } from "@/lib/store"
 import { Progress } from "@/components/ui/progress"
+import { Road_Rage } from "next/font/google"
 
 const storage = getStorage(firebaseApp)
+
+const roadRage = Road_Rage({
+  subsets: ["latin"],
+  weight: "400",
+})
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -109,11 +115,11 @@ export function AttendeeForm() {
                     <FormItem>
                       <FormLabel className="text-gray-200">Upload Profile Photo</FormLabel>
                       <FormControl>
-                        <div className="relative h-40 w-[70%] mx-auto bg-[#011920] rounded-2xl">
+                        <div className="relative h-40 bg-transparent md:w-[70%] mx-auto md:bg-[#011920] rounded-2xl ">
                   
                         
                           <div
-                            className={`relative h-full w-40 mx-auto rounded-2xl border-[3px] border-dashed border-[#24A0B5] flex items-center bg-[#0E464F] justify-center ${
+                            className={`relative h-full w-40 mx-auto rounded-2xl border-[3px]  border-[rgb(36,160,181)] flex items-center bg-[#0e515c] justify-center ${
                               field.value ? "bg-teal-400/10" : "bg-transparent"
                             }`}
                           >
@@ -206,7 +212,7 @@ export function AttendeeForm() {
               />
             </div>
 
-            <div className="flex justify-between pt-4">
+            <div className="flex justify-between pt-4 flex-col-reverse items-center md:flex-row gap-3">
               <Button
                 type="button"
                 variant="outline"

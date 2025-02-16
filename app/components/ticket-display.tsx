@@ -4,14 +4,63 @@ import { useRouter } from "next/navigation"
 import { useTicketStore } from "@/lib/store";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import JsBarcode from "jsbarcode";
 import Image from "next/image";
+import { Road_Rage } from "next/font/google";
+import { toPng } from "html-to-image";
+import jsPDF from "jspdf"
+
+
+
+const roadRage = Road_Rage({
+  subsets: ["latin"],
+  weight: "400",
+})
 
 export function TicketDisplay() {
   const router = useRouter();
   const { name, email, avatarUrl, specialRequest, ticketType, quantity } = useTicketStore();
   const [ticketId, setTicketId] = useState("");
+
+  const ticketRef = useRef<HTMLDivElement | null>(null);
+
+  const downloadAsImage = () => {
+    if (!ticketRef.current) return;
+
+    if (ticketRef.current) {
+      toPng(ticketRef.current)
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          link.href = dataUrl;
+          link.download = "ticket.png";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((err) => console.error("Error capturing image:", err));
+    }
+  };
+
+  const downloadAsPDF = () => {
+    if (!ticketRef.current) return;
+
+    if (ticketRef.current) {
+      toPng(ticketRef.current)
+        .then((dataUrl) => {
+          const pdf = new jsPDF();
+          const imgWidth = 190;
+          const imgHeight =
+          (ticketRef.current?.offsetHeight ?? 0) /
+          (ticketRef.current?.offsetWidth ?? 1) *
+          imgWidth;
+        pdf.addImage(dataUrl, "PNG", 10, 10, imgWidth, imgHeight);
+        pdf.save("ticket.pdf");
+        })
+        .catch((err) => console.error("Error generating PDF:", err));
+    }
+  };
+
 
 
 console.log("User Data", name, email)
@@ -44,10 +93,10 @@ console.log("User Data", name, email)
         <CardContent className="p-8">
           <div className="relative max-w-md mx-auto">
             {/* Ticket Design */}
-            <div className="bg-[#001A1A] rounded-lg p-6 border border-teal-900">
+            <div ref={ticketRef} className="bg-[#001A1A] rounded-lg p-6 border border-teal-900">
               <div className="space-y-6">
                 <div className="text-center space-y-2">
-                  <h2 className="text-3xl font-bold text-white">Techember Fest &apos;25</h2>
+                  <h1 className={`${roadRage.className}}text-5xl font-bold text-white `}>Techember Fest &apos;25</h1>
                   <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
                     <span>📍 G4 Partners meet, Royal, Lagos</span>
                     <span className="text-teal-400">|</span>
@@ -81,7 +130,7 @@ console.log("User Data", name, email)
                     <p className="text-white">{ticketType}</p>
                   </div>
                   <div>
-                    <p className="text-gray-400">Ticket ID</p>
+                    <p className="text-gray-400">Ticket For</p>
                     <p className="text-white">{quantity}</p>
                   </div>
                 </div>
@@ -110,7 +159,7 @@ console.log("User Data", name, email)
         >
           Book Another Ticket
         </Button>
-        <Button className="w-[200px] bg-teal-400 text-black hover:bg-teal-500">Download Ticket</Button>
+        <Button onClick={downloadAsImage} className="w-[200px] bg-teal-400 text-black hover:bg-teal-500">Download Ticket</Button>
       </div>
     </div>
   )
